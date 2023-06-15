@@ -42,6 +42,7 @@ class _TodoListPageState extends State<TodoListPage> {
           body: Center(
             child: Container(
               width: screenSize.width * .9,
+              constraints: BoxConstraints(maxHeight: screenSize.height * .7),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -74,8 +75,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
                             if (todoText.trim().isEmpty) {
                               setState(() {
-                                errorText =
-                                    'Você não pode adicionar uma tarefa vazia!';
+                                errorText = 'Dê um título para a sua tarefa!';
                               });
                               return;
                             }
@@ -111,7 +111,8 @@ class _TodoListPageState extends State<TodoListPage> {
                   Row(
                     children: [
                       Expanded(
-                          child: Text('Você possui ${todos.length} tarefas.')),
+                          child: Text(
+                              'Você possui ${todos.length} ${todos.length == 1 ? 'tarefa' : 'tarefas'}.')),
                       SizedBox(
                         width: 8,
                       ),
@@ -143,7 +144,7 @@ class _TodoListPageState extends State<TodoListPage> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Tarefa ${todo.title} foi removida com sucesso.',
+          'Tarefa "${todo.title}" foi removida com sucesso.',
           style: TextStyle(color: Colors.blue[400]),
         ),
         backgroundColor: Colors.white,
